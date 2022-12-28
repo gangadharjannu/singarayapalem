@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>శ్రీ వల్లీ దేవసేన సమేత సుబ్రహ్మణ్యేశ్వరస్వామి వారి దేవస్థానము</title>
+    <meta
+      name="description"
+      content="శ్రీ వల్లీ దేవసేన సమేత సుబ్రహ్మణ్యేశ్వరస్వామి వారి దేవస్థానము"
+    />
+    <meta
+      name="keywords"
+      content="శ్రీ వల్లీ దేవసేన సమేత సుబ్రహ్మణ్యేశ్వరస్వామి వారి దేవస్థానము"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      .work-sans {
+        font-family: "Work Sans", sans-serif;
+      }
+
+      #menu-toggle:checked + #menu {
+        display: block;
+      }
+
+      .hover\:grow {
+        transition: all 0.3s;
+        transform: scale(1);
+      }
+
+      .hover\:grow:hover {
+        transform: scale(1.02);
+      }
+
+      .carousel-open:checked + .carousel-item {
+        position: static;
+        opacity: 100;
+      }
+
+      .carousel-item {
+        -webkit-transition: opacity 0.6s ease-out;
+        transition: opacity 0.6s ease-out;
+      }
+
+      #carousel-1:checked ~ .control-1,
+      #carousel-2:checked ~ .control-2,
+      #carousel-3:checked ~ .control-3 {
+        display: block;
+      }
+
+      .carousel-indicators {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        bottom: 2%;
+        left: 0;
+        right: 0;
+        text-align: center;
+        z-index: 10;
+      }
+
+      #carousel-1:checked
+        ~ .control-1
+        ~ .carousel-indicators
+        li:nth-child(1)
+        .carousel-bullet,
+      #carousel-2:checked
+        ~ .control-2
+        ~ .carousel-indicators
+        li:nth-child(2)
+        .carousel-bullet,
+      #carousel-3:checked
+        ~ .control-3
+        ~ .carousel-indicators
+        li:nth-child(3)
+        .carousel-bullet {
+        color: #000;
+        /*Set to match the Tailwind colour you want the active one to be */
+      }
+
+      .about {
+        white-space: break-spaces;
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal"
+  >
+    <!--Nav-->
+    <nav id="header" class="w-full z-30 top-0 py-1">
+      <div
+        class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-6 py-3"
+      >
+        <div class="order-1">
+          <a
+            class="flex items-center tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl"
+            href="#"
+          >
+            శ్రీ వల్లీ దేవసేన సమేత సుబ్రహ్మణ్యేశ్వరస్వామి వారి దేవస్థానము
+          </a>
+        </div>
+        <div class="md:flex md:items-center md:w-auto w-full order-3">
+          <nav>
+            <ul
+              class="md:flex items-center justify-between text-base text-gray-700 pt-4 md:pt-0"
+            >
+              <li>
+                <a
+                  class="inline-block no-underline hover:text-black hover:underline py-2 px-4"
+                  href="#temple-history-section"
+                  >Temple History</a
+                >
+              </li>
+              <li>
+                <a
+                  class="inline-block no-underline hover:text-black hover:underline py-2 px-4"
+                  href="#timings-section"
+                  >Timings</a
+                >
+              </li>
+              <li>
+                <a
+                  class="inline-block no-underline hover:text-black hover:underline py-2 px-4"
+                  href="#how-to-reach-section"
+                  >How to reach</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="order-2 flex items-center" id="nav-content"></div>
+      </div>
+    </nav>
+
+    <section
+      class="w-full mx-auto bg-nordic-gray-light flex pt-12 md:pt-0 md:items-center bg-cover bg-right"
+      style="
+        max-width: 1600px;
+        height: 32rem;
+        background-image: url('swami.jpg');
+        background-position: top;
+        max-width: 1600px;
+        height: 32rem;
+        background-image: url(swami.jpg);
+        background-position: top center;
+        max-width: 100%;
+        height: auto;
+        max-inline-size: 100%;
+        block-size: auto;
+        aspect-ratio: 2/1;
+        object-fit: cover;
+        object-position: top center;
+      "
+    >
+      <div class="container mx-auto">
+        <div
+          class="flex flex-col w-full lg:w-1/2 justify-center items-start px-6 tracking-wide"
+        ></div>
+      </div>
+    </section>
+
+    <!-- temple history -->
+    <section class="bg-white" id="temple-history-section">
+      <div class="container py-4 px-6 mx-auto">
+        <a
+          class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl mb-8"
+          href="#"
+        >
+          Temple history
+        </a>
+        <p class="my-4">
+          లయకారుడైన శివుని ఆభరణాలుగా సర్పాలను చూస్తాం. వినాయకుని యజ్ఞోపవీతంగాను,
+          మహావిష్ణువు తల్పంగా గూడా నాగులే దర్శనమిస్తాయ. తారకాసుర సంహారానికి
+          దేవతల కోరికపై శివ వీర్యం వలన జన్మించిన సుబ్రహ్మణ్యేశ్వరుడే నాగదేవతగానే
+          ఆరాధిస్తారు. ఒక్క హైందవ సంప్రదాయంలోనే గాక బౌద్దజైన సంప్రదాయాల్లోనూ
+          నాగారాధన కనిపిస్తుంది. సర్పాన్ని జాతీయ చిహ్నంగా గల ప్రాచీనులు కూడా
+          ఉండేవారని చరిత్ర చెప్తోంది. ఇలా సర్పపూజ ప్రపంచం మొత్తంమీద చాలాచోట్ల
+          కనిపిస్తుంది. ఇలాంటి సర్పపూజ సింగరాయపాలెంలో ప్రత్యేకతను సంతరించుకొంది.
+          1954 సంవత్సరంలో కృష్ణా జిల్లా ముదినేపల్లి మండలం, సింగరాయపాలెం, మరియు
+          చేవూరు పాలెం, గుళ్ల సింగరాయపాలెంగా ప్రసిద్ధి చెందిన శింగరాయపాలెం
+          గ్రామంలో ఒక దేవతా సర్పరాజము శ్రీ బాబాజీ మఠములోనుండి శ్రీ లక్ష్మీ
+          నరసింహస్వామి వారి దేవస్థానం తటాకంలోకి వచ్చి స్నానం చేసి తిరిగి వెళ్లు
+          సందర్భంలో చేవూరుపాలెంకు చెందిన ఇద్దరు రైతు సోదరులు అయిన అనందాసు
+          వెంకటేశ్వరరావు (వెంకన్న), కీ.శే. ఇసుకపల్లి సుబ్బారావులు ఆ దేవతా
+          సర్పరాజంపై రాళ్లు విసిరారు. ఆ సర్పరాజం తల నేల బాదుకుని మరణించింది. ఆ
+          సర్పమును గ్రామస్తులు చేవూరుపాలెం కాలువగట్టుపై పాతిపెట్టారు. అంతే ఆ
+          రైతు సోదరులకు చూపు పోయింది, వారు తమ తప్పు తెలుసుకొన్నారు. తమ తప్పును
+          క్షమించమని వేడుకొన్నారు. అపరాధాలు మన్నించమని పరిపరివిధాలా
+          ప్రార్థించారు. ఇలా ప్రార్ధించిన తర్వాత భక్త దయాళువైన
+          సుబ్రహ్మణ్యేశ్వరుడు వారికి చూపును ప్రసాదించాడు. ఆ రైతు సోదరులు
+          ఆనందానికి అవధి లేకుండా పోయంది. ఆ రోజు రాత్రి గ్రామ పెద్దకు శ్రీ
+          స్వామివారు కలలో కనిపించి తనకు ఆలయం నిర్మించాల్సిందిగా ఆదేశించారు.
+          పాతిపెట్టబడిన సర్పమును వెలుపలకు తీసి ఊరేగించి దహన సంస్కారములు
+          చేయడానికి చూస్తున్నారు. పవిత్రమైన ప్రదేశము కోసం పెద్దలు పండితులు
+          చేవూరు పాలెం శింగరాయపాలెం సమావేశమై చర్చిస్తున్న సమయంలో దారినపోయే ఆవుల
+          మందలోనుండి ఒక కపిల గోవు (నల్లని ఆవు) అంబా అని అరుస్తూ శ్రీ లక్ష్మీ
+          నరసింహస్వామి వారి దేవస్థాన తటాకంలో దిగి స్నానమాచరించి చెరువుగట్టుపైకి
+          వచ్చి చుట్టూ ప్రదక్షిణం చేసి మలమూత్రాలు విసర్జించింది. కాలి గిట్టలతో
+          త్రవ్వుతూ అంబా అంబా అను అరుస్తున్న ఆవును చూసి పెద్దలకు, పండితులకు వారి
+          కర్తవ్యం అర్థం అయంది. అపుడు సుబ్రహ్మణేశ్వరునకు పెద్దలు ఇక్కడనే గుడి
+          కడతామన్న సంగతిని నివేదించారు. అంతే ఆ మాటలు విన్న వెంటనే అక్కడ్నుంచి ఆ
+          ఆవు సంతోషంగా వెళ్లిపోయంది. దాన్ని చూసి ప్రదేశంలోనే గుడి
+          నిర్మించాలన్నది స్వామి ఆదేశం అని పండితులు, గ్రామ పెద్దలునిర్ణయానికి
+          వచ్చారు. గుడి నిర్మాణము చేయుట ఆ దైవప్రేరకమని వారందరూ భావించారు.
+          అప్పట్నుంచి ఇక్కడి సుబ్రహ్మణ్యేశ్వరునికి మొక్కిన మొక్కులు తృటిలో
+          తీరేవి. కోరిన కోర్కెలు తీర్చేస్వామిగా ఈ సుబ్రహ్మణ్యేశ్వరుడు వినితి
+          కెక్కాడు. అపుత్రులకు పుత్రులను, సుమంగళులకు నిత్యసౌభాగ్యాలను ఇచ్చే
+          థేవునిగా సుబ్రహ్మణ్యేశ్వరుడు సారతులందుకుంటున్నాడు. అపుడు శ్రీకారం
+          చుట్టిన ఈ దేవాలయంలో శ్రీ వల్లీ దేవసేన సమేత శ్రీ
+          సుబ్రహ్మణ్యేశ్వరస్వామిని ప్రతిష్టచేసారు. ఈ దేవాలయాన్ని శిధిల
+          మవుతున్నందని భావించిన భక్తులు 2001లో 20 లక్షల ఖర్చుతో పునన్మిరాణం
+          చేయించారు. పునప్రతిష్ఠా కార్యక్రమం నిర్వహించటం జరిగింది. ఆనాటినుండి
+          ఈనాటి వరకు దినదినాభివృద్ధి చెందుతు శ్రీస్వామివారు భక్తుల కోర్కెలను
+          నెరవేర్చుకున్న సంగతి లోకవిదితమే
+        </p>
+      </div>
+    </section>
+    <!-- timings -->
+    <section class="bg-white" id="timings-section">
+      <div class="container py-4 px-6 mx-auto">
+        <a
+          class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl mb-8"
+          href="#"
+        >
+          Timings
+        </a>
+        <div class="mb-8 mt-8">
+          <ul>
+            <li>Sunday 6am-1pm 5-8pm</li>
+            <li>Monday 6am-1pm 5-8pm</li>
+            <li>Tuesday 6am-1pm 5-8pm</li>
+            <li>Wednesday 6am-1pm 5-8pm</li>
+            <li>Thursday 6am-1pm 5-8pm</li>
+            <li>Friday 6am-1pm 5-8pm</li>
+            <li>Saturday 6am-1pm 5-8pm</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!-- how to reach -->
+    <section class="bg-white" id="how-to-reach-section">
+      <div class="container py-4 px-6 mx-auto">
+        <a
+          class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl mb-8"
+          href="#"
+        >
+          How to reach
+        </a>
+        <div class="mb-8 mt-8">
+          <p>రవాణా సౌకర్యాలు</p>
+          <p>రోడ్డు మార్గాలు</p>
+          <ul>
+            <li>
+              విజయవాడ నుండి గుడివాడ వచ్చి, అక్కడి నుండి బంటుమిల్లి వచ్చే రోడ్డు
+              శింగరాయపాలెం గుండా పోతుంది.
+            </li>
+            <li>
+              గుడివాడ నుండి బంటుమిల్లి వచ్చే రోడ్డు శింగరాయపాలెం గుండా పోతుంది
+            </li>
+            <li>
+              మచిలీపట్నం నుండి బంటుమిల్లి వచ్చి, అక్కడి నుండి గుడివాడ వచ్చే
+              రోడ్డు శింగరాయపాలెం గుండా పోతుంది
+            </li>
+          </ul>
+          <p>రైలు మార్గం</p>
+          <ul>
+            <li>సమీప రైల్వే స్టేషన్లు విజయవాడ, గుడివాడ</li>
+          </ul>
+          <p>విమాన మార్గం</p>
+          <ul>
+            <li>సమీప విమానాశ్రయాలు విజయవాడ, హైదరాబాద్</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!-- footer -->
+    <footer class="container mx-auto bg-white py-4 border-t border-gray-400">
+      <div class="container flex px-3 py-4">
+        <div class="w-full mx-auto flex flex-wrap">
+          <div class="flex w-full lg:w-1/2">
+            <div class="px-3 md:px-0">
+              <h3 class="font-bold text-gray-900">About</h3>
+              <div class="py-4">
+                <ul>
+                  <li>
+                    శ్రీ వల్లీ దేవసేన సమేత సుబ్రహ్మణ్యేశ్వరస్వామి వారి
+                    దేవస్థానము,
+                  </li>
+                  <li>శింగరాయపాలెం-చేవూరుపాలెం సెంటర్,</li>
+                  <li>ముదినేపల్లి మండలం,</li>
+                  <li>ఏలూరు జిల్లా,</li>
+                  <li>ఆంధ్రప్రదేశ్ - 521329,</li>
+                  <li>భారతదేశం.</li>
+
+                  <li>08674-234591,</li>
+                  <li>08674-294591</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
