@@ -89,8 +89,19 @@
         /*Set to match the Tailwind colour you want the active one to be */
       }
 
-      .about {
-        white-space: break-spaces;
+      .responsive-google-maps {
+        overflow: hidden;
+        padding-bottom: 75%;
+        position: relative;
+        height: 0;
+      }
+
+      .responsive-google-maps iframe {
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        position: absolute;
       }
     </style>
   </head>
@@ -292,7 +303,7 @@
         >
           ఎలా చేరుకోవాలి
         </a>
-        <div class="grid grid-cols-2 gap-2">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
           <div class="mb-8 mt-8">
             <p>రవాణా సౌకర్యాలు</p>
             <p>రోడ్డు మార్గాలు</p>
@@ -318,7 +329,7 @@
               <li>సమీప విమానాశ్రయాలు విజయవాడ, హైదరాబాద్</li>
             </ul>
           </div>
-          <div>
+          <div class="responsive-google-maps">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7654.569847912421!2d81.14718677162973!3d16.41034964648989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a361f6f024979cd%3A0xe4b84503a5f41714!2sSri%20Valli%20Devasena%20Sameta%20Sri%20Subrahmanyeswara%20Swamy%20Temple!5e0!3m2!1sen!2snl!4v1672692367432!5m2!1sen!2snl"
               width="600"
