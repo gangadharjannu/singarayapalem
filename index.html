@@ -25,6 +25,10 @@
     />
 
     <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
       .work-sans {
         font-family: "Work Sans", sans-serif;
       }
@@ -102,6 +106,30 @@
         height: 100%;
         width: 100%;
         position: absolute;
+      }
+
+      .scroll-to-top {
+        background-color: black;
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 48px;
+        width: 48px;
+
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 100;
+        opacity: 0;
+        transform: translateY(100px);
+        transition: all 0.5s ease;
+      }
+
+      .show-scroll-to-top {
+        opacity: 1;
+        transform: translateY(0);
       }
     </style>
   </head>
@@ -188,7 +216,7 @@
       <div class="container py-4 px-6 mx-auto">
         <a
           class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl mb-8"
-          href="#"
+          href="#temple-history-section"
         >
           స్థలపురాణం
         </a>
@@ -258,7 +286,7 @@
           </p>
 
           <p>
-            వారిని దర్శించిన సకల దోషాలు పరిహరింపబదతాయని భక్తుల నమ్మకం. దీర్ఘకాల
+            వారిని దర్శించిన సకల దోషాలు పరిహరింపబడతాయని భక్తుల నమ్మకం. దీర్ఘకాల
             సమస్యలు, సంతానము, వివాహము, కుజదోషం,
           </p>
 
@@ -272,7 +300,7 @@
             జరిపించుకున్న వారి బాధలు తొలగిపోగలవని భక్తుల ప్రగాఢ
           </p>
 
-          <p>విశ్వాసము</p>
+          <p>విశ్వాసము.</p>
         </div>
       </div>
     </section>
@@ -281,7 +309,7 @@
       <div class="container py-4 px-6 mx-auto">
         <a
           class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl mb-8"
-          href="#"
+          href="#timings-section"
         >
           ఆలయ దర్శన వేళలు
         </a>
@@ -299,7 +327,7 @@
       <div class="container py-4 px-6 mx-auto">
         <a
           class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl mb-8"
-          href="#"
+          href="#how-to-reach-section"
         >
           ఎలా చేరుకోవాలి
         </a>
@@ -349,7 +377,7 @@
         <div class="w-full mx-auto flex flex-wrap">
           <div class="flex w-full lg:w-1/2">
             <div class="px-3 md:px-0">
-              <h3 class="font-bold text-gray-900">About</h3>
+              <h3 class="font-bold text-gray-900">ఆలయం వివరాలు</h3>
               <div class="py-4">
                 <ul>
                   <li>
@@ -371,5 +399,41 @@
         </div>
       </div>
     </footer>
+    <button class="scroll-to-top">&#8593;</button>
+    <script>
+      // We select the element we want to target
+      var target = document.querySelector("#header");
+
+      var scrollToTopBtn = document.querySelector(".scroll-to-top");
+      var rootElement = document.documentElement;
+
+      // Next we want to create a function that will be called when that element is intersected
+      function callback(entries, observer) {
+        // The callback will return an array of entries, even if you are only observing a single item
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Hide button
+            scrollToTopBtn.classList.remove("show-scroll-to-top");
+          } else {
+            // Show button
+            scrollToTopBtn.classList.add("show-scroll-to-top");
+          }
+        });
+      }
+
+      function scrollToTop() {
+        rootElement.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
+      scrollToTopBtn.addEventListener("click", scrollToTop);
+
+      // Next we instantiate the observer with the function we created above. This takes an optional configuration
+      // object that we will use in the other examples.
+      let observer = new IntersectionObserver(callback);
+      // Finally start observing the target element
+      observer.observe(target);
+    </script>
   </body>
 </html>
