@@ -398,6 +398,9 @@
           </div>
         </div>
       </div>
+      <div class="text-center">
+        వీక్షణల సంఖ్య: <span id="pageViewCount">0</span>
+      </div>
     </footer>
     <button class="scroll-to-top">&#8593;</button>
     <script>
@@ -436,12 +439,20 @@
       observer.observe(target);
     </script>
     <script>
-      var t = setInterval(function () {
-        if (window.goatcounter && window.goatcounter.visit_count) {
-          clearInterval(t);
-          window.goatcounter.visit_count({append: "body"});
+      var r = new XMLHttpRequest();
+      r.addEventListener("load", function () {
+        const count = parseInt(JSON.parse(this.responseText).count, 10);
+        if (count) {
+          document.querySelector("#pageViewCount").innerText = count;
         }
-      }, 100);
+      });
+      r.open(
+        "GET",
+        "https://singarayapalem.goatcounter.com/counter/" +
+          encodeURIComponent(location.pathname) +
+          ".json"
+      );
+      r.send();
     </script>
     <script
       data-goatcounter="https://singarayapalem.goatcounter.com/count"
