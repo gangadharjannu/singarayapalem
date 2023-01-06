@@ -6,6 +6,24 @@ html {
   font-family: "Work Sans", sans-serif;
 }
 
+.swami {
+  max-width: 1600px;
+  height: 32rem;
+  background-position: top;
+  max-width: 1600px;
+  height: 32rem;
+  background-position: top center;
+  background-repeat: no-repeat;
+  max-width: 100%;
+  height: auto;
+  max-inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 2/1;
+  object-fit: cover;
+  object-position: top center;
+  width: 100%;
+}
+
 .responsive-google-maps {
   overflow: hidden;
   padding-bottom: 75%;
