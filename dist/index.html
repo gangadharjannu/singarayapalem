@@ -4,7 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>శ్రీ వల్లీదేవసేన సమేత శ్రీ సుబ్రహ్మణ్యేశ్వరస్వామి వారి దేవస్థానము</title>
+    <title>
+      శ్రీ వల్లీదేవసేన సమేత శ్రీ సుబ్రహ్మణ్యేశ్వరస్వామి వారి దేవస్థానము
+    </title>
     <meta
       name="description"
       content="శ్రీ వల్లీదేవసేన సమేత శ్రీ సుబ్రహ్మణ్యేశ్వరస్వామి వారి దేవస్థానము"
@@ -14,15 +16,13 @@
       content="శ్రీ వల్లీదేవసేన సమేత శ్రీ సుబ్రహ్మణ్యేశ్వరస్వామి వారి దేవస్థానము"
     />
 
-    <link rel="stylesheet" href="tailwind.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="tailwind.css" />
+    <link rel="stylesheet" href="styles.css" />
 
     <link
       href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap"
       rel="stylesheet"
     />
-
-    
   </head>
 
   <body
@@ -33,7 +33,7 @@
       <div
         class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-6 py-3"
       >
-        <div class="order-1">
+        <div>
           <a
             class="flex items-center tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl"
             href="#"
@@ -41,7 +41,7 @@
             శ్రీ వల్లీదేవసేన సమేత శ్రీ సుబ్రహ్మణ్యేశ్వరస్వామి వారి దేవస్థానము
           </a>
         </div>
-        <div class="md:flex md:items-center md:w-auto w-full order-3">
+        <div class="md:flex md:items-center md:w-auto w-full">
           <nav>
             <ul
               class="md:flex items-center justify-between text-base text-gray-700 pt-4 md:pt-0"
@@ -70,37 +70,18 @@
             </ul>
           </nav>
         </div>
-
-        <div class="order-2 flex items-center" id="nav-content"></div>
       </div>
     </nav>
 
-    <section
-      class="w-full mx-auto bg-nordic-gray-light flex pt-12 md:pt-0 md:items-center bg-cover bg-right"
-      style="
-        max-width: 1600px;
-        height: 32rem;
-        background-image: url('swami.jpg');
-        background-position: top;
-        max-width: 1600px;
-        height: 32rem;
-        background-image: url(swami.jpg);
-        background-position: top center;
-        max-width: 100%;
-        height: auto;
-        max-inline-size: 100%;
-        block-size: auto;
-        aspect-ratio: 2/1;
-        object-fit: cover;
-        object-position: top center;
-      "
-    >
-      <div class="container mx-auto">
-        <div
-          class="flex flex-col w-full lg:w-1/2 justify-center items-start px-6 tracking-wide"
-        ></div>
-      </div>
-    </section>
+    <picture>
+      <source srcset="swami.webp" type="image/webp" class="swami" />
+      <source srcset="swami.jpg" type="image/jpeg" class="swami" />
+      <img
+        src="swami.jpg"
+        alt="శ్రీ వల్లీదేవసేన సమేత శ్రీ సుబ్రహ్మణ్యేశ్వరస్వామి వారు"
+        class="swami"
+      />
+    </picture>
 
     <!-- temple history -->
     <section class="bg-white" id="temple-history-section">

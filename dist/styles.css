@@ -1,0 +1,64 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.work-sans {
+  font-family: "Work Sans", sans-serif;
+}
+
+.swami {
+  max-width: 1600px;
+  height: 32rem;
+  background-position: top;
+  max-width: 1600px;
+  height: 32rem;
+  background-position: top center;
+  background-repeat: no-repeat;
+  max-width: 100%;
+  height: auto;
+  max-inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 2/1;
+  object-fit: cover;
+  object-position: top center;
+  width: 100%;
+}
+
+.responsive-google-maps {
+  overflow: hidden;
+  padding-bottom: 75%;
+  position: relative;
+  height: 0;
+}
+
+.responsive-google-maps iframe {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.scroll-to-top {
+  background-color: black;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 48px;
+  width: 48px;
+
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(100px);
+  transition: all 0.5s ease;
+}
+
+.show-scroll-to-top {
+  opacity: 1;
+  transform: translateY(0);
+}
