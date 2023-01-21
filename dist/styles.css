@@ -6,6 +6,12 @@ html {
   font-family: "Work Sans", sans-serif;
 }
 
+#header {
+  position: sticky;
+  background: #fff;
+  box-shadow: 0 3px 5px -3px #ff671f;
+}
+
 .swami {
   max-width: 1600px;
   height: 32rem;
@@ -40,9 +46,9 @@ html {
 }
 
 .scroll-to-top {
-  background-color: black;
+  background-color: #000;
   border: none;
-  color: white;
+  color: #fff;
   cursor: pointer;
   font-size: 32px;
   font-weight: 700;
