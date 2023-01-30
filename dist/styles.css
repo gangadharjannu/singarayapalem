@@ -6,6 +6,10 @@ html {
   font-family: "Work Sans", sans-serif;
 }
 
+.site-section {
+  scroll-margin-top: 4rem;
+}
+
 #header {
   position: sticky;
   background: #fff;
@@ -45,26 +49,14 @@ html {
   position: absolute;
 }
 
-.scroll-to-top {
-  background-color: #000;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 48px;
-  width: 48px;
-
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  z-index: 100;
-  opacity: 0;
-  transform: translateY(100px);
-  transition: all 0.5s ease;
+@media only screen and (max-width: 768px) {
+  .site-section {
+    scroll-margin-top: 12rem;
+  }
 }
 
-.show-scroll-to-top {
-  opacity: 1;
-  transform: translateY(0);
+@media only screen and (min-width: 769px) and (max-width: 1023px) {
+  .site-section {
+    scroll-margin-top: 6rem;
+  }
 }
