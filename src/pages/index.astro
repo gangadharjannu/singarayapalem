@@ -1,0 +1,527 @@
+---
+import { getImage } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import swami from '../assets/swami.jpg';
+
+// Responsive hero: same image re-encoded per format. Quality is tuned per
+// format because AVIF/WebP/JPEG quality scales are not equivalent.
+// Widths cover common phone sizes x density (e.g. 380px x 1.75 = 665 -> 680w);
+// 1024w max: enough for a ~360px-wide phone at 3x density.
+const heroWidths = [400, 480, 560, 680, 800, 1024];
+const heroQuality = { avif: 50, webp: 72, jpg: 72 } as const;
+const heroSizes =
+  '(min-width: 1152px) 440px, (min-width: 1024px) calc((100vw - 6rem) * 5 / 12), (min-width: 560px) 512px, calc(100vw - 2rem)';
+
+async function srcset(format: keyof typeof heroQuality) {
+  const images = await Promise.all(
+    heroWidths.map((width) => getImage({ src: swami, width, format, quality: heroQuality[format] })),
+  );
+  return images.map((img, i) => `${img.src} ${heroWidths[i]}w`).join(', ');
+}
+
+const fallbackImg = await getImage({ src: swami, width: 800, format: 'jpg', quality: heroQuality.jpg });
+const hero = {
+  avif: await srcset('avif'),
+  webp: await srcset('webp'),
+  jpg: await srcset('jpg'),
+  fallback: fallbackImg.src,
+};
+
+const templeName = 'శ్రీ వల్లీదేవసేన సమేత శ్రీ సుబ్రహ్మణ్యేశ్వరస్వామి వారి దేవస్థానము';
+
+const nav = [
+  { href: '#temple-history-section', label: 'స్థలపురాణం' },
+  { href: '#timings-section', label: 'ఆలయ దర్శన వేళలు' },
+  { href: '#how-to-reach-section', label: 'ఎలా చేరుకోవాలి' },
+];
+
+// Pin from Google's plus code C562+436 (within ~6 m); the map embed centre is ~300 m off.
+const geo = { lat: 16.41031, lng: 81.15019 };
+const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${geo.lat},${geo.lng}`;
+
+const phones = [
+  { display: '08674-234591', tel: '+918674234591' },
+  { display: '08674-294591', tel: '+918674294591' },
+];
+
+// Darshan hours, 24h in IST; used by the "open now" badge and structured data.
+const hours = [
+  { opens: '06:00', closes: '13:00' },
+  { opens: '18:00', closes: '20:00' },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HinduTemple',
+  name: templeName,
+  alternateName: 'Sri Valli Devasena Sameta Sri Subrahmanyeswara Swamy Temple',
+  url: 'https://www.singarayapalem.com/',
+  telephone: phones.map((p) => p.tel),
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'శింగరాయపాలెం-చేవూరుపాలెం సెంటర్, ముదినేపల్లి మండలం',
+    addressLocality: 'శింగరాయపాలెం',
+    addressRegion: 'ఆంధ్రప్రదేశ్',
+    postalCode: '521329',
+    addressCountry: 'IN',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: geo.lat, longitude: geo.lng },
+  hasMap: directionsUrl,
+  image: new URL(fallbackImg.src, Astro.site).href,
+  openingHoursSpecification: hours.map((h) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    opens: h.opens,
+    closes: h.closes,
+  })),
+};
+
+const mapSrc =
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7654.569847912421!2d81.14718677162973!3d16.41034964648989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a361f6f024979cd%3A0xe4b84503a5f41714!2sSri%20Valli%20Devasena%20Sameta%20Sri%20Subrahmanyeswara%20Swamy%20Temple!5e0!3m2!1sen!2snl!4v1672692367432!5m2!1sen!2snl';
+---
+
+<Base title={templeName} description={templeName}>
+  <header
+    class="sticky top-0 z-30 border-b border-gold bg-surface/95 shadow-[0_3px_5px_-3px_var(--color-saffron)] backdrop-blur"
+  >
+    <div
+      class="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-2 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:py-3"
+    >
+      <h1 class="text-base leading-normal font-bold text-maroon sm:text-lg xl:text-xl">
+        <a href="#" class="hover:text-saffron-deep">{templeName}</a>
+      </h1>
+      <nav>
+        <ul
+          class="-mx-4 -my-1 flex gap-2 overflow-x-auto px-4 py-2 [scrollbar-width:none] sm:mx-0 sm:px-1"
+        >
+          {
+            nav.map((item) => (
+              <li class="shrink-0">
+                <a
+                  href={item.href}
+                  class="inline-block rounded-full border border-gold bg-gold-soft px-3 py-1 text-sm whitespace-nowrap text-ink transition-colors hover:border-saffron hover:text-maroon lg:border-transparent lg:bg-transparent lg:text-base"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:py-10">
+    <div class="grid gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:grid-rows-[auto_1fr] lg:gap-x-12 lg:gap-y-8">
+      <picture class="mx-auto block w-full max-w-lg lg:col-start-1 lg:row-start-1 lg:max-w-none">
+        <source type="image/avif" srcset={hero.avif} sizes={heroSizes} />
+        <source type="image/webp" srcset={hero.webp} sizes={heroSizes} />
+        <img
+          src={hero.fallback}
+          srcset={hero.jpg}
+          sizes={heroSizes}
+          alt="శ్రీ వల్లీదేవసేన సమేత శ్రీ సుబ్రహ్మణ్యేశ్వరస్వామి వారు"
+          width={swami.width}
+          height={swami.height}
+          fetchpriority="high"
+          class="aspect-square h-auto w-full rounded-2xl border-4 border-gold bg-gold-soft object-cover shadow-md"
+        />
+      </picture>
+
+      <section id="temple-history-section" class="lg:col-start-2 lg:row-span-2 lg:row-start-1">
+        <h2 class="section-title">స్థలపురాణం</h2>
+        <div class="mt-5 max-w-[65ch] space-y-4 text-[1.0625rem] leading-[1.9]">
+          <p class="text-xl leading-normal font-semibold text-maroon">
+            శ్రీ వల్లీదేవసేన సమేత శ్రీ సుబ్రహ్మణ్యేశ్వరస్వామి వారి దేవస్థానం
+          </p>
+
+          <p>
+            1954 సంవత్సరంలో కృష్ణా జిల్లా, ముదినేపల్లి మండలం, శింగరాయపాలెం మరియు
+            చేవూరు పాలెం సెంటర్‌లో గుళ్ల శింగరాయపాలెంగా ప్రసిద్ధి చెందిన శింగరాయపాలెం
+            గ్రామములో ఒక దేవతా సర్పరాజము శ్రీ బావాజీ మఠములో నుండి శ్రీ
+            లక్ష్మీనృసింహస్వామి వారి దేవస్థానము తటాకములోనికి ప్రతిరోజు వచ్చి స్నానము
+            గావించి తిరిగి వెళ్ళు సందర్భములో చేవూరుపాలెంకు చెందిన ఇద్దరు రైతు సోదరులు
+            ఆ దేవతా సర్పరాజముపై రాళ్ళు విసరగా ఆ సర్పరాజము తల నేల బాదుకొని మరణించెను.
+            ఆ సర్పమును గ్రామస్థులు చేవూరుపాలెం కాలువగట్టుపై పాతిపెట్టగా ఆ రైతు
+            సోదరులకు చూపు పోయినది. దర్మిలా వారి యొక్క అపరాధము మన్నించమని శ్రీ
+            స్వామివారిని మ్రొక్కిన తదుపరి ఆ రైతు సోదరులకు చూపు వచ్చినది.
+          </p>
+
+          <p>
+            ఆ రోజు రాత్రి గ్రామపెద్దలకు శ్రీ స్వామి వారు కలలో కనిపించి ఆలయమును
+            నిర్మించవలిసినదిగా ఆదేశించినందున పాతిపెట్టబడిన సర్పమును వెలుపలికి తీసి
+            ఊరేగించి, దహనసంస్కారములు చేయు ప్రదేశము కోసం పెద్దలు, పండితులు
+            చేవూరుపాలెం, శింగరాయపాలెం సెంటర్‌లో సమావేశమై చర్చించుచుండగా దారిన పోయే
+            ఆవుల మందలో నుండి ఒక కపిలగోవు (నల్లని ఆవు) అంబా అని అరచుచూ శ్రీ లక్ష్మీ
+            నృసింహ స్వామివారి దేవస్థాన తటాకములో దిగి స్నానమాచరించి చెరువు గట్టుపైకి
+            వచ్చి చుట్టూ ప్రదక్షిణము చేసి గోపంచకము, గోమయం విసర్జించి కాలిగిట్టలతో నేల
+            త్రవ్వుతూ అంబా అని అరచుచున్న సందర్భమున ఆ వింత చూస్తున్న పండితులు,
+            గ్రామపెద్దలు ఆ ప్రదేశములోనే గుడి నిర్మాణము చేయుట ఆ దైవము ఆదేశమని భావించి ఆ
+            దివ్యమైన ప్రదేశములోనే శ్రీ వల్లీదేవసేన సమేత శ్రీ సుబ్రహ్మణ్యేశ్వర స్వామి
+            వారి దేవస్తానం ప్రతిష్ట గావించిరి.
+          </p>
+
+          <p>
+            అప్పటి నుండి భక్తుల సహకారముతో నిర్మాణము గావించబడినది. శ్రీ స్వామి వారిని
+            నిర్మలమైన మనస్సుతో నమస్కరించి, ప్రార్ధించి స్వామి వారిని దర్శించిన సకల
+            దోషాలు పరిహరింపబడతాయని భక్తుల నమ్మకం. దీర్ఘకాల సమస్యలు, సంతానము, వివాహము,
+            కుజదోషం, ఐశ్వర్యము, ఆయురారోగ్యములు ఇలా ఏ కష్టములో నున్నవారు ఏదికోరి
+            వచ్చినను, శ్రీ స్వామి వారికి మ్రొక్కుకుని అత్యంత భక్తి శ్రద్దలతో పుట్టలో
+            పాలు పోసుకుని, పంచామృతాలతో అభిషేకము, సర్పదోష నివారణ పూజ జరిపించుకున్న
+            వారి బాధలు తొలగిపోగలవని భక్తుల ప్రగాఢ విశ్వాసము.
+          </p>
+        </div>
+      </section>
+
+      <section id="timings-section" class="card self-start lg:col-start-1 lg:row-start-2">
+        <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+          <h2 class="section-title">ఆలయ దర్శన వేళలు</h2>
+          <p
+            id="open-status"
+            data-hours={JSON.stringify(hours)}
+            class="invisible mt-1 inline-flex items-center gap-2 rounded-full px-3 py-0.5 text-sm font-semibold data-[open=false]:bg-gold-soft data-[open=false]:text-muted data-[open=true]:bg-emerald-50 data-[open=true]:text-emerald-800"
+          >
+            <span
+              aria-hidden="true"
+              class="size-2 rounded-full bg-current in-data-[open=true]:animate-pulse motion-reduce:animate-none"
+            ></span>
+            <span data-label></span>
+          </p>
+        </div>
+        <ul class="mt-4 space-y-3">
+          <li class="font-semibold text-muted">ప్రతి రోజు,</li>
+          <li class="flex items-start gap-3">
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              class="mt-1 size-5 shrink-0 text-saffron-deep"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              ><circle cx="12" cy="12" r="4"></circle><path
+                d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"
+              ></path></svg
+            >
+            <span>ఉదయం 6 గంటల నుండి మధ్యాహ్నం 1 గంట వరకు</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              class="mt-1 size-5 shrink-0 text-maroon"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg
+            >
+            <span>సాయంత్రం 6 గంటల నుండి రాత్రి 8 గంటల వరకు</span>
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <section id="how-to-reach-section" class="mt-12 lg:mt-16">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <h2 class="section-title">ఎలా చేరుకోవాలి</h2>
+        <!-- Desktop only; phones and tablets get the fixed bottom action bar -->
+        <div class="hidden flex-wrap gap-3 lg:flex">
+        <a
+          href={`tel:${phones[0].tel}`}
+          class="inline-flex items-center gap-2 rounded-full border border-maroon bg-surface px-5 py-2.5 font-semibold text-maroon shadow-sm transition-colors hover:bg-gold-soft"
+        >
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            class="size-5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><path
+              d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"
+            ></path></svg
+          >
+          కాల్ చేయండి
+        </a>
+        <a
+          href={directionsUrl}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2 rounded-full bg-maroon px-5 py-2.5 font-semibold text-white shadow-sm transition-colors hover:bg-saffron-deep"
+        >
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            class="size-5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"><path d="m3 11 18-8-8 18-2-8z"></path></svg
+          >
+          దారి చూపు
+        </a>
+        </div>
+      </div>
+      <div class="mt-6 grid gap-6 lg:grid-cols-2 lg:gap-10">
+        <div class="space-y-4">
+          <p class="font-semibold text-muted">రవాణా సౌకర్యాలు</p>
+
+          <div class="card">
+            <h3 class="flex items-center gap-2 font-bold text-maroon">
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                class="size-5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path d="M5 17h14M6 17v2M18 17v2M3 13l2-6h14l2 6v4H3z"></path><circle
+                  cx="7.5"
+                  cy="14"
+                  r=".5"></circle><circle cx="16.5" cy="14" r=".5"></circle></svg
+              >
+              రోడ్డు మార్గాలు
+            </h3>
+            <ul class="mt-3 list-disc space-y-2 ps-5 marker:text-saffron">
+              <li>
+                విజయవాడ నుండి గుడివాడ వచ్చి, అక్కడి నుండి బంటుమిల్లి వచ్చే రోడ్డు
+                శింగరాయపాలెం గుండా పోతుంది.
+              </li>
+              <li>గుడివాడ నుండి బంటుమిల్లి వచ్చే రోడ్డు శింగరాయపాలెం గుండా పోతుంది</li>
+              <li>
+                మచిలీపట్నం నుండి బంటుమిల్లి వచ్చి, అక్కడి నుండి గుడివాడ వచ్చే రోడ్డు
+                శింగరాయపాలెం గుండా పోతుంది
+              </li>
+            </ul>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="card">
+              <h3 class="flex items-center gap-2 font-bold text-maroon">
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  class="size-5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  ><rect x="5" y="3" width="14" height="14" rx="3"></rect><path
+                    d="M5 11h14M9 21l1.5-4M15 21l-1.5-4"></path></svg
+                >
+                రైలు మార్గం
+              </h3>
+              <ul class="mt-3">
+                <li>సమీప రైల్వే స్టేషన్లు విజయవాడ, గుడివాడ</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3 class="flex items-center gap-2 font-bold text-maroon">
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  class="size-5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  ><path
+                    d="M10 13 3 11V9l7 1 4-7h2l-1 7 5 1 1-2h2l-1 4 1 4h-2l-1-2-5 1 1 7h-2l-4-7z"
+                  ></path></svg
+                >
+                విమాన మార్గం
+              </h3>
+              <ul class="mt-3">
+                <li>సమీప విమానాశ్రయాలు విజయవాడ, హైదరాబాద్</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="map"
+          data-src={mapSrc}
+          data-title={templeName}
+          class="relative aspect-[4/3] overflow-hidden rounded-2xl border-4 border-gold bg-gold-soft shadow-sm lg:aspect-auto lg:min-h-[24rem]"
+        >
+          <!-- Facade: Google Maps (~1 MB) loads only when asked. Without JS the link opens Maps. -->
+          <a
+            href={directionsUrl}
+            target="_blank"
+            rel="noopener"
+            data-map-load
+            class="group absolute focus-visible:outline-offset-[-6px] inset-0 flex flex-col items-center justify-center gap-3 bg-[radial-gradient(circle_at_center,var(--color-surface)_0,var(--color-gold-soft)_70%)] p-6 text-center"
+          >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              class="size-12 text-saffron-deep transition-transform group-hover:-translate-y-1"
+              fill="currentColor"
+              ><path
+                d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"
+              ></path></svg
+            >
+            <span class="max-w-xs leading-normal font-bold text-maroon">{templeName}</span>
+            <span
+              class="rounded-full border border-maroon px-5 py-2 font-semibold text-maroon transition-colors group-hover:bg-maroon group-hover:text-white"
+            >
+              మ్యాప్ చూడండి
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mt-8 border-t border-gold bg-surface pb-[calc(4.5rem+env(safe-area-inset-bottom))] lg:pb-0">
+    <div class="mx-auto grid max-w-6xl gap-6 px-4 py-8 sm:px-6 md:grid-cols-2 md:items-end">
+      <div>
+        <h2 class="font-bold text-maroon">ఆలయం వివరాలు</h2>
+        <address class="mt-3 not-italic">
+          <ul>
+            <li>శ్రీ వల్లీదేవసేన సమేత శ్రీ సుబ్రహ్మణ్యేశ్వరస్వామి వారి దేవస్థానము,</li>
+            <li>శింగరాయపాలెం-చేవూరుపాలెం సెంటర్,</li>
+            <li>ముదినేపల్లి మండలం,</li>
+            <li>ఏలూరు జిల్లా,</li>
+            <li>ఆంధ్రప్రదేశ్ - 521329,</li>
+            <li>భారతదేశం.</li>
+          </ul>
+          <ul class="mt-3">
+            {
+              phones.map((p, i) => (
+                <li>
+                  <a
+                    href={`tel:${p.tel}`}
+                    class="font-semibold text-maroon underline decoration-gold decoration-2 underline-offset-4 hover:decoration-saffron"
+                  >
+                    {p.display}
+                  </a>
+                  {i < phones.length - 1 && ','}
+                </li>
+              ))
+            }
+          </ul>
+        </address>
+      </div>
+      <p class="text-sm text-muted md:text-end">
+        వీక్షణల సంఖ్య: <span id="pageViewCount">0</span>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Mobile quick actions -->
+  <div
+    class="fixed inset-x-0 bottom-0 z-30 border-t border-gold bg-surface/95 px-4 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] shadow-[0_-3px_5px_-3px_var(--color-saffron)] backdrop-blur lg:hidden"
+  >
+    <div class="mx-auto grid max-w-lg grid-cols-2 gap-3">
+      <a
+        href={`tel:${phones[0].tel}`}
+        class="flex items-center justify-center gap-2 rounded-full border border-maroon py-2.5 font-semibold text-maroon"
+      >
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          class="size-5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          ><path
+            d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"
+          ></path></svg
+        >
+        కాల్ చేయండి
+      </a>
+      <a
+        href={directionsUrl}
+        target="_blank"
+        rel="noopener"
+        class="flex items-center justify-center gap-2 rounded-full bg-maroon py-2.5 font-semibold text-white"
+      >
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          class="size-5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"><path d="m3 11 18-8-8 18-2-8z"></path></svg
+        >
+        దారి చూపు
+      </a>
+    </div>
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />
+
+  <script>
+    // Keep anchor offsets equal to the real sticky-header height (it wraps on small screens).
+    const header = document.querySelector('header');
+    if (header) {
+      const setHeaderHeight = () =>
+        document.documentElement.style.setProperty('--header-h', `${header.offsetHeight}px`);
+      new ResizeObserver(setHeaderHeight).observe(header);
+      setHeaderHeight();
+    }
+
+    // "Open now" badge, computed in India time regardless of the visitor's zone.
+    const status = document.getElementById('open-status');
+    if (status) {
+      const hours: { opens: string; closes: string }[] = JSON.parse(status.dataset.hours ?? '[]');
+      const toMin = (t: string) => {
+        const [h, m] = t.split(':').map(Number);
+        return h * 60 + m;
+      };
+      const update = () => {
+        const parts = new Intl.DateTimeFormat('en-GB', {
+          timeZone: 'Asia/Kolkata',
+          hour: '2-digit',
+          minute: '2-digit',
+          hourCycle: 'h23',
+        }).formatToParts(new Date());
+        const get = (type: string) => Number(parts.find((p) => p.type === type)?.value);
+        const now = get('hour') * 60 + get('minute');
+        const open = hours.some((h) => now >= toMin(h.opens) && now < toMin(h.closes));
+        status.dataset.open = String(open);
+        status.querySelector('[data-label]')!.textContent = open
+          ? 'ఇప్పుడు తెరిచి ఉంది'
+          : 'ప్రస్తుతం మూసి ఉంది';
+        status.classList.remove('invisible');
+      };
+      update();
+      setInterval(update, 60_000);
+    }
+
+    // Map facade: swap in the Google Maps iframe on first tap.
+    const map = document.getElementById('map');
+    map?.querySelector('[data-map-load]')?.addEventListener('click', (e) => {
+      if (e instanceof MouseEvent && (e.metaKey || e.ctrlKey || e.shiftKey)) return;
+      e.preventDefault();
+      const iframe = document.createElement('iframe');
+      iframe.src = map.dataset.src!;
+      iframe.title = map.dataset.title!;
+      iframe.className = 'absolute inset-0 h-full w-full border-0';
+      iframe.allowFullscreen = true;
+      iframe.referrerPolicy = 'no-referrer-when-downgrade';
+      map.replaceChildren(iframe);
+      iframe.focus();
+    });
+  </script>
+
+  <script is:inline defer src="/js/display-visitors-count.js"></script>
+  <script
+    is:inline
+    data-goatcounter="https://singarayapalem.goatcounter.com/count"
+    async
+    src="https://gc.zgo.at/count.js"></script>
+</Base>
