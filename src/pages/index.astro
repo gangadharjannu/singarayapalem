@@ -20,12 +20,12 @@ const mapSrc =
     <div
       class="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-2 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:py-3"
     >
-      <h1 class="text-base leading-snug font-bold text-maroon sm:text-lg xl:text-xl">
+      <h1 class="text-base leading-normal font-bold text-maroon sm:text-lg xl:text-xl">
         <a href="#" class="hover:text-saffron-deep">{templeName}</a>
       </h1>
       <nav>
         <ul
-          class="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:px-0 lg:pb-0"
+          class="-mx-4 -my-1 flex gap-2 overflow-x-auto px-4 py-2 [scrollbar-width:none] sm:mx-0 sm:px-1"
         >
           {
             nav.map((item) => (
@@ -46,7 +46,7 @@ const mapSrc =
 
   <main class="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:py-10">
     <div class="grid gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:grid-rows-[auto_1fr] lg:gap-x-12 lg:gap-y-8">
-      <picture class="block lg:col-start-1 lg:row-start-1">
+      <picture class="mx-auto block w-full max-w-lg lg:col-start-1 lg:row-start-1 lg:max-w-none">
         <source srcset="/swami.webp" type="image/webp" />
         <img
           src="/swami.jpg"
@@ -54,7 +54,6 @@ const mapSrc =
           width="1234"
           height="1234"
           fetchpriority="high"
-          decoding="async"
           class="aspect-square w-full rounded-2xl border-4 border-gold object-cover shadow-md"
         />
       </picture>
