@@ -5,8 +5,9 @@ import swami from '../assets/swami.jpg';
 
 // Responsive hero: same image re-encoded per format. Quality is tuned per
 // format because AVIF/WebP/JPEG quality scales are not equivalent.
+// Widths cover common phone sizes x density (e.g. 380px x 1.75 = 665 -> 680w);
 // 1024w max: enough for a ~360px-wide phone at 3x density.
-const heroWidths = [400, 600, 800, 1024];
+const heroWidths = [400, 480, 560, 680, 800, 1024];
 const heroQuality = { avif: 50, webp: 72, jpg: 72 } as const;
 const heroSizes =
   '(min-width: 1152px) 440px, (min-width: 1024px) calc((100vw - 6rem) * 5 / 12), (min-width: 560px) 512px, calc(100vw - 2rem)';

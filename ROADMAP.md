@@ -12,8 +12,8 @@ structure, styling, delivery and additive features.
      (word-for-word identical)
    - GitHub Actions now builds the site; `dist/` is no longer committed
 2. **Images** — done
-   - Same image re-encoded at 400/600/800/1024w in AVIF (q50), WebP (q72), JPEG (q72);
-     phones now download ~30 KB (1x) / ~87 KB (2x) / ~121 KB (3x) instead of 276 KB
+   - Same image re-encoded at 400–1024w (6 sizes) in AVIF (q50), WebP (q72), JPEG (q72);
+     phones now download ~30–87 KB (1x–2x) / ~121 KB (3x) instead of 276 KB
    - Image shown uncropped; `og:image` (800px JPEG, under WhatsApp's ~300 KB limit)
    - Favicon + apple-touch-icon cropped from Swami's face (`npm run icons`)
    - Source of truth is `src/assets/swami.jpg`; unused `public/swami.{jpg,webp}` removed
@@ -24,7 +24,13 @@ structure, styling, delivery and additive features.
    - Tried self-hosted Noto Sans Telugu (~95 KB); reverted. Android already ships it,
      and iOS (Kohinoor Telugu) / Windows (Nirmala UI) system fonts read well, so the
      bytes only bought cross-device sameness. System stack in `global.css` stays.
-6. **Lighthouse** — re-run in a clean (extension-free) profile and fix findings
+6. **Lighthouse** — done (local production build, clean headless Chrome, v13.6.0)
+   - Mobile: 100 / 100 / 100 / 100 (was 91 / 90 / 96 / 100). LCP 1.2 s (was 3.3 s), CLS 0,
+     TBT 0 ms, total transfer 87 KiB
+   - Desktop: 100 / 100 / 100 / 100, total transfer 60 KiB
+   - Added 480/560/680w image candidates so emulated phones get an exact-fit file
+   - Re-check against the live site after deploy (GitHub Pages adds gzip; 10-min cache TTL
+     can't be changed without a CDN in front)
 
 ## Next steps (to think about)
 
