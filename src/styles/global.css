@@ -1,0 +1,64 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Devotional palette: cream paper, maroon ink, saffron + gold accents */
+  --color-paper: #fdf8f0;
+  --color-surface: #ffffff;
+  --color-ink: #3b2a20;
+  --color-muted: #6b5446;
+  --color-maroon: #7a1f1f;
+  --color-saffron: #ff671f;
+  --color-saffron-deep: #c2410c;
+  --color-gold: #e9d8b4;
+  --color-gold-soft: #f6ecd9;
+
+  /* System Telugu faces first (Android, Windows, macOS/iOS), then generic */
+  --font-sans: 'Noto Sans Telugu', 'Nirmala UI', 'Kohinoor Telugu', 'Gautami', system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Keeps anchored section headings clear of the sticky header */
+    scroll-padding-top: 7.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (min-width: 64rem) {
+    html {
+      scroll-padding-top: 5.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+    line-height: 1.8; /* Telugu script needs taller lines than Latin */
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-saffron-deep);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .section-title {
+    @apply relative pb-2 text-xl font-bold text-maroon sm:text-2xl;
+  }
+
+  .section-title::after {
+    content: '';
+    @apply absolute bottom-0 left-0 h-1 w-12 rounded-full bg-saffron;
+  }
+
+  .card {
+    @apply rounded-2xl border border-gold bg-surface p-5 shadow-sm sm:p-6;
+  }
+}

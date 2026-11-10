@@ -1,0 +1,271 @@
+---
+import Base from '../layouts/Base.astro';
+
+const templeName = 'శ్రీ వల్లీదేవసేన సమేత శ్రీ సుబ్రహ్మణ్యేశ్వరస్వామి వారి దేవస్థానము';
+
+const nav = [
+  { href: '#temple-history-section', label: 'స్థలపురాణం' },
+  { href: '#timings-section', label: 'ఆలయ దర్శన వేళలు' },
+  { href: '#how-to-reach-section', label: 'ఎలా చేరుకోవాలి' },
+];
+
+const mapSrc =
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7654.569847912421!2d81.14718677162973!3d16.41034964648989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a361f6f024979cd%3A0xe4b84503a5f41714!2sSri%20Valli%20Devasena%20Sameta%20Sri%20Subrahmanyeswara%20Swamy%20Temple!5e0!3m2!1sen!2snl!4v1672692367432!5m2!1sen!2snl';
+---
+
+<Base title={templeName} description={templeName}>
+  <header
+    class="sticky top-0 z-30 border-b border-gold bg-surface/95 shadow-[0_3px_5px_-3px_var(--color-saffron)] backdrop-blur"
+  >
+    <div
+      class="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-2 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:py-3"
+    >
+      <h1 class="text-base leading-snug font-bold text-maroon sm:text-lg xl:text-xl">
+        <a href="#" class="hover:text-saffron-deep">{templeName}</a>
+      </h1>
+      <nav>
+        <ul
+          class="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:px-0 lg:pb-0"
+        >
+          {
+            nav.map((item) => (
+              <li class="shrink-0">
+                <a
+                  href={item.href}
+                  class="inline-block rounded-full border border-gold bg-gold-soft px-3 py-1 text-sm whitespace-nowrap text-ink transition-colors hover:border-saffron hover:text-maroon lg:border-transparent lg:bg-transparent lg:text-base"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:py-10">
+    <div class="grid gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:grid-rows-[auto_1fr] lg:gap-x-12 lg:gap-y-8">
+      <picture class="block lg:col-start-1 lg:row-start-1">
+        <source srcset="/swami.webp" type="image/webp" />
+        <img
+          src="/swami.jpg"
+          alt="శ్రీ వల్లీదేవసేన సమేత శ్రీ సుబ్రహ్మణ్యేశ్వరస్వామి వారు"
+          width="1234"
+          height="1234"
+          fetchpriority="high"
+          decoding="async"
+          class="aspect-square w-full rounded-2xl border-4 border-gold object-cover shadow-md"
+        />
+      </picture>
+
+      <section id="temple-history-section" class="lg:col-start-2 lg:row-span-2 lg:row-start-1">
+        <h2 class="section-title">స్థలపురాణం</h2>
+        <div class="mt-5 max-w-[65ch] space-y-4 text-[1.0625rem] leading-[1.9]">
+          <p class="text-xl leading-normal font-semibold text-maroon">
+            శ్రీ వల్లీదేవసేన సమేత శ్రీ సుబ్రహ్మణ్యేశ్వరస్వామి వారి దేవస్థానం
+          </p>
+
+          <p>
+            1954 సంవత్సరంలో కృష్ణా జిల్లా, ముదినేపల్లి మండలం, శింగరాయపాలెం మరియు
+            చేవూరు పాలెం సెంటర్‌లో గుళ్ల శింగరాయపాలెంగా ప్రసిద్ధి చెందిన శింగరాయపాలెం
+            గ్రామములో ఒక దేవతా సర్పరాజము శ్రీ బావాజీ మఠములో నుండి శ్రీ
+            లక్ష్మీనృసింహస్వామి వారి దేవస్థానము తటాకములోనికి ప్రతిరోజు వచ్చి స్నానము
+            గావించి తిరిగి వెళ్ళు సందర్భములో చేవూరుపాలెంకు చెందిన ఇద్దరు రైతు సోదరులు
+            ఆ దేవతా సర్పరాజముపై రాళ్ళు విసరగా ఆ సర్పరాజము తల నేల బాదుకొని మరణించెను.
+            ఆ సర్పమును గ్రామస్థులు చేవూరుపాలెం కాలువగట్టుపై పాతిపెట్టగా ఆ రైతు
+            సోదరులకు చూపు పోయినది. దర్మిలా వారి యొక్క అపరాధము మన్నించమని శ్రీ
+            స్వామివారిని మ్రొక్కిన తదుపరి ఆ రైతు సోదరులకు చూపు వచ్చినది.
+          </p>
+
+          <p>
+            ఆ రోజు రాత్రి గ్రామపెద్దలకు శ్రీ స్వామి వారు కలలో కనిపించి ఆలయమును
+            నిర్మించవలిసినదిగా ఆదేశించినందున పాతిపెట్టబడిన సర్పమును వెలుపలికి తీసి
+            ఊరేగించి, దహనసంస్కారములు చేయు ప్రదేశము కోసం పెద్దలు, పండితులు
+            చేవూరుపాలెం, శింగరాయపాలెం సెంటర్‌లో సమావేశమై చర్చించుచుండగా దారిన పోయే
+            ఆవుల మందలో నుండి ఒక కపిలగోవు (నల్లని ఆవు) అంబా అని అరచుచూ శ్రీ లక్ష్మీ
+            నృసింహ స్వామివారి దేవస్థాన తటాకములో దిగి స్నానమాచరించి చెరువు గట్టుపైకి
+            వచ్చి చుట్టూ ప్రదక్షిణము చేసి గోపంచకము, గోమయం విసర్జించి కాలిగిట్టలతో నేల
+            త్రవ్వుతూ అంబా అని అరచుచున్న సందర్భమున ఆ వింత చూస్తున్న పండితులు,
+            గ్రామపెద్దలు ఆ ప్రదేశములోనే గుడి నిర్మాణము చేయుట ఆ దైవము ఆదేశమని భావించి ఆ
+            దివ్యమైన ప్రదేశములోనే శ్రీ వల్లీదేవసేన సమేత శ్రీ సుబ్రహ్మణ్యేశ్వర స్వామి
+            వారి దేవస్తానం ప్రతిష్ట గావించిరి.
+          </p>
+
+          <p>
+            అప్పటి నుండి భక్తుల సహకారముతో నిర్మాణము గావించబడినది. శ్రీ స్వామి వారిని
+            నిర్మలమైన మనస్సుతో నమస్కరించి, ప్రార్ధించి స్వామి వారిని దర్శించిన సకల
+            దోషాలు పరిహరింపబడతాయని భక్తుల నమ్మకం. దీర్ఘకాల సమస్యలు, సంతానము, వివాహము,
+            కుజదోషం, ఐశ్వర్యము, ఆయురారోగ్యములు ఇలా ఏ కష్టములో నున్నవారు ఏదికోరి
+            వచ్చినను, శ్రీ స్వామి వారికి మ్రొక్కుకుని అత్యంత భక్తి శ్రద్దలతో పుట్టలో
+            పాలు పోసుకుని, పంచామృతాలతో అభిషేకము, సర్పదోష నివారణ పూజ జరిపించుకున్న
+            వారి బాధలు తొలగిపోగలవని భక్తుల ప్రగాఢ విశ్వాసము.
+          </p>
+        </div>
+      </section>
+
+      <section id="timings-section" class="card self-start lg:col-start-1 lg:row-start-2">
+        <h2 class="section-title">ఆలయ దర్శన వేళలు</h2>
+        <ul class="mt-4 space-y-3">
+          <li class="font-semibold text-muted">ప్రతి రోజు,</li>
+          <li class="flex items-start gap-3">
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              class="mt-1 size-5 shrink-0 text-saffron-deep"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              ><circle cx="12" cy="12" r="4"></circle><path
+                d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"
+              ></path></svg
+            >
+            <span>ఉదయం 6 గంటల నుండి మధ్యాహ్నం 1 గంట వరకు</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              class="mt-1 size-5 shrink-0 text-maroon"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg
+            >
+            <span>సాయంత్రం 6 గంటల నుండి రాత్రి 8 గంటల వరకు</span>
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <section id="how-to-reach-section" class="mt-12 lg:mt-16">
+      <h2 class="section-title">ఎలా చేరుకోవాలి</h2>
+      <div class="mt-6 grid gap-6 lg:grid-cols-2 lg:gap-10">
+        <div class="space-y-4">
+          <p class="font-semibold text-muted">రవాణా సౌకర్యాలు</p>
+
+          <div class="card">
+            <h3 class="flex items-center gap-2 font-bold text-maroon">
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                class="size-5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path d="M5 17h14M6 17v2M18 17v2M3 13l2-6h14l2 6v4H3z"></path><circle
+                  cx="7.5"
+                  cy="14"
+                  r=".5"></circle><circle cx="16.5" cy="14" r=".5"></circle></svg
+              >
+              రోడ్డు మార్గాలు
+            </h3>
+            <ul class="mt-3 list-disc space-y-2 ps-5 marker:text-saffron">
+              <li>
+                విజయవాడ నుండి గుడివాడ వచ్చి, అక్కడి నుండి బంటుమిల్లి వచ్చే రోడ్డు
+                శింగరాయపాలెం గుండా పోతుంది.
+              </li>
+              <li>గుడివాడ నుండి బంటుమిల్లి వచ్చే రోడ్డు శింగరాయపాలెం గుండా పోతుంది</li>
+              <li>
+                మచిలీపట్నం నుండి బంటుమిల్లి వచ్చి, అక్కడి నుండి గుడివాడ వచ్చే రోడ్డు
+                శింగరాయపాలెం గుండా పోతుంది
+              </li>
+            </ul>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="card">
+              <h3 class="flex items-center gap-2 font-bold text-maroon">
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  class="size-5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  ><rect x="5" y="3" width="14" height="14" rx="3"></rect><path
+                    d="M5 11h14M9 21l1.5-4M15 21l-1.5-4"></path></svg
+                >
+                రైలు మార్గం
+              </h3>
+              <ul class="mt-3">
+                <li>సమీప రైల్వే స్టేషన్లు విజయవాడ, గుడివాడ</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3 class="flex items-center gap-2 font-bold text-maroon">
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  class="size-5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  ><path
+                    d="M10 13 3 11V9l7 1 4-7h2l-1 7 5 1 1-2h2l-1 4 1 4h-2l-1-2-5 1 1 7h-2l-4-7z"
+                  ></path></svg
+                >
+                విమాన మార్గం
+              </h3>
+              <ul class="mt-3">
+                <li>సమీప విమానాశ్రయాలు విజయవాడ, హైదరాబాద్</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="aspect-[4/3] overflow-hidden rounded-2xl border-4 border-gold bg-gold-soft shadow-sm lg:aspect-auto lg:min-h-[24rem]"
+        >
+          <iframe
+            src={mapSrc}
+            title={templeName}
+            class="h-full w-full border-0"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mt-8 border-t border-gold bg-surface">
+    <div class="mx-auto grid max-w-6xl gap-6 px-4 py-8 sm:px-6 md:grid-cols-2 md:items-end">
+      <div>
+        <h2 class="font-bold text-maroon">ఆలయం వివరాలు</h2>
+        <address class="mt-3 not-italic">
+          <ul>
+            <li>శ్రీ వల్లీదేవసేన సమేత శ్రీ సుబ్రహ్మణ్యేశ్వరస్వామి వారి దేవస్థానము,</li>
+            <li>శింగరాయపాలెం-చేవూరుపాలెం సెంటర్,</li>
+            <li>ముదినేపల్లి మండలం,</li>
+            <li>ఏలూరు జిల్లా,</li>
+            <li>ఆంధ్రప్రదేశ్ - 521329,</li>
+            <li>భారతదేశం.</li>
+          </ul>
+          <ul class="mt-3">
+            <li>08674-234591,</li>
+            <li>08674-294591</li>
+          </ul>
+        </address>
+      </div>
+      <p class="text-sm text-muted md:text-end">
+        వీక్షణల సంఖ్య: <span id="pageViewCount">0</span>
+      </p>
+    </div>
+  </footer>
+
+  <script is:inline defer src="/js/display-visitors-count.js"></script>
+  <script
+    is:inline
+    data-goatcounter="https://singarayapalem.goatcounter.com/count"
+    async
+    src="https://gc.zgo.at/count.js"></script>
+</Base>
