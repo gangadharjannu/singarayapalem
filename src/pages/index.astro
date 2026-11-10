@@ -411,7 +411,8 @@ const mapSrc =
           </ul>
         </address>
       </div>
-      <p class="text-sm text-muted md:text-end">
+      <!-- Shown only once the count loads (stays hidden if blocked/offline) -->
+      <p id="visit-count" hidden class="text-sm text-muted md:text-end">
         వీక్షణల సంఖ్య: <span id="pageViewCount">0</span>
       </p>
     </div>
@@ -516,12 +517,66 @@ const mapSrc =
       map.replaceChildren(iframe);
       iframe.focus();
     });
-  </script>
 
-  <script is:inline defer src="/js/display-visitors-count.js"></script>
-  <script
-    is:inline
-    data-goatcounter="https://singarayapalem.goatcounter.com/count"
-    async
-    src="https://gc.zgo.at/count.js"></script>
+    // Privacy-friendly analytics (GoatCounter: no cookies, no personal data).
+    // Replaces the 9 KB third-party count.js with the same request it would send.
+    const GC = 'https://singarayapalem.goatcounter.com';
+
+    const isLocal =
+      location.protocol === 'file:' ||
+      /(localhost$|^127\.|^10\.|^172\.(1[6-9]|2\d|3[01])\.|^192\.168\.|^0\.0\.0\.0$)/.test(location.hostname);
+    const isBot = navigator.webdriver || 'callPhantom' in window || '__nightmare' in window;
+
+    const countVisit = () => {
+      const params = new URLSearchParams({
+        p: location.pathname,
+        t: document.title,
+        s: String(screen.width),
+        rnd: Math.random().toString(36).slice(2, 7), // defeat caches, as count.js does
+      });
+      if (document.referrer) params.set('r', document.referrer);
+      if (location.search) params.set('q', location.search);
+      const url = `${GC}/count?${params}`;
+      if (!navigator.sendBeacon?.(url)) new Image().src = url;
+    };
+
+    if (!isLocal && !isBot && window.self === window.top) {
+      // Don't count speculative prerenders until the page is actually shown.
+      if ((document as Document & { prerendering?: boolean }).prerendering) {
+        document.addEventListener('prerenderingchange', countVisit, { once: true });
+      } else {
+        countVisit();
+      }
+    }
+
+    // Public visitor count, fetched only when the footer is about to scroll into view.
+    // GoatCounter formats numbers like "1 489", so keep digits only.
+    const visitCount = document.getElementById('visit-count');
+    const loadCount = () =>
+      fetch(`${GC}/counter/${encodeURIComponent(location.pathname)}.json`)
+        .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+        .then(({ count }: { count: string }) => {
+          const n = Number(String(count).replace(/\D/g, ''));
+          if (!visitCount || !n) return;
+          visitCount.querySelector('#pageViewCount')!.textContent = n.toLocaleString('en-IN');
+          visitCount.hidden = false;
+        })
+        .catch(() => {}); // blocked or offline: the line simply stays hidden
+
+    const footer = document.querySelector('footer');
+    if (footer && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((e) => e.isIntersecting)) {
+            io.disconnect();
+            loadCount();
+          }
+        },
+        { rootMargin: '600px 0px' },
+      );
+      io.observe(footer);
+    } else {
+      loadCount();
+    }
+  </script>
 </Base>
