@@ -411,7 +411,7 @@ const mapSrc =
           </ul>
         </address>
       </div>
-      <!-- Shown only once the count loads (stays hidden if blocked/offline) -->
+      {/* Shown only once the count loads (stays hidden if blocked/offline) */}
       <p id="visit-count" hidden class="text-sm text-muted md:text-end">
         వీక్షణల సంఖ్య: <span id="pageViewCount">0</span>
       </p>
@@ -525,7 +525,13 @@ const mapSrc =
     const isLocal =
       location.protocol === 'file:' ||
       /(localhost$|^127\.|^10\.|^172\.(1[6-9]|2\d|3[01])\.|^192\.168\.|^0\.0\.0\.0$)/.test(location.hostname);
-    const isBot = navigator.webdriver || 'callPhantom' in window || '__nightmare' in window;
+    const w = window as unknown as Record<string, unknown>;
+    const d = document as unknown as Record<string, unknown>;
+    const isBot = Boolean(
+      navigator.webdriver ||
+        w.callPhantom || w._phantom || w.phantom || w.__nightmare ||
+        d.__selenium_unwrapped || d.__webdriver_evaluate || d.__driver_evaluate,
+    );
 
     const countVisit = () => {
       const params = new URLSearchParams({
@@ -535,17 +541,24 @@ const mapSrc =
         rnd: Math.random().toString(36).slice(2, 7), // defeat caches, as count.js does
       });
       if (document.referrer) params.set('r', document.referrer);
-      if (location.search) params.set('q', location.search);
+      // Query string only for campaign tags (ref/utm_*), not arbitrary click IDs.
+      if (/[?&](ref|utm_\w+)=/i.test(location.search)) params.set('q', location.search);
       const url = `${GC}/count?${params}`;
       if (!navigator.sendBeacon?.(url)) new Image().src = url;
     };
 
     if (!isLocal && !isBot && window.self === window.top) {
-      // Don't count speculative prerenders until the page is actually shown.
-      if ((document as Document & { prerendering?: boolean }).prerendering) {
-        document.addEventListener('prerenderingchange', countVisit, { once: true });
-      } else {
+      // Count only once the page is actually seen: background tabs and
+      // prerendered pages are not 'visible' until the visitor opens them.
+      if (document.visibilityState === 'visible') {
         countVisit();
+      } else {
+        const onVisible = () => {
+          if (document.visibilityState !== 'visible') return;
+          document.removeEventListener('visibilitychange', onVisible);
+          countVisit();
+        };
+        document.addEventListener('visibilitychange', onVisible);
       }
     }
 
