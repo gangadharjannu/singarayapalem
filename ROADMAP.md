@@ -38,17 +38,10 @@ structure, styling, delivery and additive features.
   offline is feasible (no API): precompute a yearly JSON at build time with
   `astronomy-engine`. Details, probe results, festival rules, risks and open decisions:
   [docs/research/panchangam.md](docs/research/panchangam.md).
-- **Analytics — fix or replace with something minimal and privacy-focused.**
-  STRICTLY no bloated analytics (no Google Analytics, no tag managers, no cookies,
-  no consent banner needed).
-  - Today: GoatCounter `count.js` plus a separate XHR in
-    `public/js/display-visitors-count.js` for the visitor count. Ad blockers
-    block `gc.zgo.at`, which is why Lighthouse logged console errors, and the
-    count call is a second request.
-  - Options: keep GoatCounter but self-host `count.js` (about 3 KB) and use its
-    `visit_count()` helper or one fetch for the counter; or a no-JS pixel; or
-    drop the public counter entirely. Decide whether the visible visitor count
-    is worth keeping.
+- **Analytics** — done: GoatCounter kept (no cookies, no personal data), but its 9 KB
+  third-party `count.js` and the separate counter script are replaced by ~1 KB inline
+  code. Visitor count fixed (showed "1" because GoatCounter returns "1 489"), fetched
+  only when the footer nears view, hidden if blocked.
 - **Long-lived caching** — GitHub Pages forces `Cache-Control: max-age=600` on every
   file. `/_astro/*` files are content-hashed, so they could safely be cached for a
   year as `immutable`. Options: put Cloudflare (free) in front of GitHub Pages with a
