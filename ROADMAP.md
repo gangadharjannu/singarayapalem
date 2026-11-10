@@ -34,16 +34,10 @@ structure, styling, delivery and additive features.
 
 ## Next steps (to think about)
 
-- **Telugu calendar (పంచాంగం)**: show today's tithi, nakshatram, rahukalam and
-  daily muhurtham for the temple's location.
-  - Open questions: compute client-side (an astronomy library and
-    Mudinepalli's coordinates) or fetch at build time with a scheduled daily
-    rebuild; which panchangam tradition and terminology to follow.
-- **Upcoming festival days for Sri Subrahmanyeswara Swamy (Murugan)**, e.g. Subrahmanya
-  Shashti, Skanda Shashti, Naga Panchami, Naga Chaturthi, Thaipusam, monthly
-  Shashti / Krittika days.
-  - Open questions: whether the temple publishes its own utsavam dates; a
-    maintained data file (e.g. `src/data/festivals.json`) vs. computed dates.
+- **Telugu panchangam + Murugan festival days** — researched, not scheduled. Fully
+  offline is feasible (no API): precompute a yearly JSON at build time with
+  `astronomy-engine`. Details, probe results, festival rules, risks and open decisions:
+  [docs/research/panchangam.md](docs/research/panchangam.md).
 - **Analytics — fix or replace with something minimal and privacy-focused.**
   STRICTLY no bloated analytics (no Google Analytics, no tag managers, no cookies,
   no consent banner needed).
