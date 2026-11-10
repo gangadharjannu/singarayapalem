@@ -27,6 +27,13 @@
     -webkit-text-size-adjust: 100%;
   }
 
+  /* Below lg the fixed bottom action bar must not hide focused content */
+  @media (max-width: 63.999rem) {
+    html {
+      scroll-padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
+    }
+  }
+
   @media (min-width: 64rem) {
     html {
       --header-fallback: 4.75rem;

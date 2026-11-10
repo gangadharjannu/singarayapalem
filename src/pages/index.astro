@@ -34,7 +34,7 @@ const nav = [
   { href: '#how-to-reach-section', label: 'ఎలా చేరుకోవాలి' },
 ];
 
-// Exact pin from Google's plus code C562+436 (map embed centre is ~300 m off).
+// Pin from Google's plus code C562+436 (within ~6 m); the map embed centre is ~300 m off.
 const geo = { lat: 16.41031, lng: 81.15019 };
 const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${geo.lat},${geo.lng}`;
 
@@ -66,6 +66,7 @@ const jsonLd = {
   },
   geo: { '@type': 'GeoCoordinates', latitude: geo.lat, longitude: geo.lng },
   hasMap: directionsUrl,
+  image: new URL(fallbackImg.src, Astro.site).href,
   openingHoursSpecification: hours.map((h) => ({
     '@type': 'OpeningHoursSpecification',
     dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
@@ -177,8 +178,7 @@ const mapSrc =
           <p
             id="open-status"
             data-hours={JSON.stringify(hours)}
-            hidden
-            class="mt-1 inline-flex items-center gap-2 rounded-full px-3 py-0.5 text-sm font-semibold data-[open=false]:bg-gold-soft data-[open=false]:text-muted data-[open=true]:bg-emerald-50 data-[open=true]:text-emerald-800"
+            class="invisible mt-1 inline-flex items-center gap-2 rounded-full px-3 py-0.5 text-sm font-semibold data-[open=false]:bg-gold-soft data-[open=false]:text-muted data-[open=true]:bg-emerald-50 data-[open=true]:text-emerald-800"
           >
             <span
               aria-hidden="true"
@@ -357,7 +357,7 @@ const mapSrc =
             target="_blank"
             rel="noopener"
             data-map-load
-            class="group absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[radial-gradient(circle_at_center,var(--color-surface)_0,var(--color-gold-soft)_70%)] p-6 text-center"
+            class="group absolute focus-visible:outline-offset-[-6px] inset-0 flex flex-col items-center justify-center gap-3 bg-[radial-gradient(circle_at_center,var(--color-surface)_0,var(--color-gold-soft)_70%)] p-6 text-center"
           >
             <svg
               aria-hidden="true"
@@ -461,7 +461,7 @@ const mapSrc =
     </div>
   </div>
 
-  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />
 
   <script>
     // Keep anchor offsets equal to the real sticky-header height (it wraps on small screens).
@@ -495,7 +495,7 @@ const mapSrc =
         status.querySelector('[data-label]')!.textContent = open
           ? 'ఇప్పుడు తెరిచి ఉంది'
           : 'ప్రస్తుతం మూసి ఉంది';
-        status.hidden = false;
+        status.classList.remove('invisible');
       };
       update();
       setInterval(update, 60_000);
@@ -504,6 +504,7 @@ const mapSrc =
     // Map facade: swap in the Google Maps iframe on first tap.
     const map = document.getElementById('map');
     map?.querySelector('[data-map-load]')?.addEventListener('click', (e) => {
+      if (e instanceof MouseEvent && (e.metaKey || e.ctrlKey || e.shiftKey)) return;
       e.preventDefault();
       const iframe = document.createElement('iframe');
       iframe.src = map.dataset.src!;
