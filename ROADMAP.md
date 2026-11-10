@@ -17,15 +17,13 @@ structure, styling, delivery and additive features.
    - Image shown uncropped; `og:image` (800px JPEG, under WhatsApp's ~300 KB limit)
    - Favicon + apple-touch-icon cropped from Swami's face (`npm run icons`)
    - Source of truth is `src/assets/swami.jpg`; unused `public/swami.{jpg,webp}` removed
-3. **Additions** — done
-   - Tap-to-call numbers; Call + Directions buttons (desktop) and fixed bottom bar (mobile)
-   - Google Maps loads only on tap (placeholder shows the temple name)
-   - Open/closed badge in IST; Schema.org `HinduTemple` JSON-LD with exact location
-   - Anchor offset follows the real sticky-header height
+3. **Additions** — tap-to-call phone numbers, "Directions" button, sticky mobile
+   action bar, tap-to-load map, "open now" badge, Schema.org `HinduTemple` JSON-LD
 4. **More information** — nothing for now (see Next steps)
-5. **Font** — done
-   - Self-hosted Noto Sans Telugu (OFL), weights 400 + 700 only, Telugu + Latin subsets
-     (~95 KB max); `local()` first, so Android phones with the system font download nothing
+5. **Font** — decided against a web font
+   - Tried self-hosted Noto Sans Telugu (~95 KB); reverted. Android already ships it,
+     and iOS (Kohinoor Telugu) / Windows (Nirmala UI) system fonts read well, so the
+     bytes only bought cross-device sameness. System stack in `global.css` stays.
 6. **Lighthouse** — re-run in a clean (extension-free) profile and fix findings
 
 ## Next steps (to think about)
