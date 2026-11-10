@@ -13,7 +13,7 @@ structure, styling, delivery and additive features.
    - GitHub Actions now builds the site; `dist/` is no longer committed
 2. **Images** — done
    - Same image re-encoded at 400/600/800/1024w in AVIF (q50), WebP (q72), JPEG (q72);
-     a 390px phone now downloads ~85 KB instead of 276 KB
+     phones now download ~30 KB (1x) / ~87 KB (2x) / ~121 KB (3x) instead of 276 KB
    - Image shown uncropped; `og:image` (800px JPEG, under WhatsApp's ~300 KB limit)
    - Favicon + apple-touch-icon cropped from Swami's face (`npm run icons`)
    - Source of truth is `src/assets/swami.jpg`; unused `public/swami.{jpg,webp}` removed

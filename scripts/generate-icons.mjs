@@ -9,6 +9,7 @@ const tightFace = { left: 522, top: 225, width: 190, height: 190 };
 const jobs = [
   { crop: tightFace, size: 32, out: 'public/favicon-32.png' },
   { crop: face, size: 180, out: 'public/apple-touch-icon.png' },
+  { crop: face, size: 192, out: 'public/icon-192.png' },
 ];
 
 for (const { crop, size, out } of jobs) {
