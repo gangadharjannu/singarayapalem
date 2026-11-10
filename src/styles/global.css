@@ -19,14 +19,16 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    /* Keeps anchored section headings clear of the sticky header */
-    scroll-padding-top: 8.5rem;
+    /* Anchored sections land just below the sticky header. --header-h is
+       measured by script; the fallbacks approximate it when JS is off. */
+    --header-fallback: 6.75rem;
+    scroll-padding-top: calc(var(--header-h, var(--header-fallback)) + 0.75rem);
     -webkit-text-size-adjust: 100%;
   }
 
   @media (min-width: 64rem) {
     html {
-      scroll-padding-top: 5.5rem;
+      --header-fallback: 4.75rem;
     }
   }
 

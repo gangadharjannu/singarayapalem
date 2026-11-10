@@ -34,6 +34,46 @@ const nav = [
   { href: '#how-to-reach-section', label: 'ఎలా చేరుకోవాలి' },
 ];
 
+// Exact pin from Google's plus code C562+436 (map embed centre is ~300 m off).
+const geo = { lat: 16.41031, lng: 81.15019 };
+const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${geo.lat},${geo.lng}`;
+
+const phones = [
+  { display: '08674-234591', tel: '+918674234591' },
+  { display: '08674-294591', tel: '+918674294591' },
+];
+
+// Darshan hours, 24h in IST; used by the "open now" badge and structured data.
+const hours = [
+  { opens: '06:00', closes: '13:00' },
+  { opens: '18:00', closes: '20:00' },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HinduTemple',
+  name: templeName,
+  alternateName: 'Sri Valli Devasena Sameta Sri Subrahmanyeswara Swamy Temple',
+  url: 'https://www.singarayapalem.com/',
+  telephone: phones.map((p) => p.tel),
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'శింగరాయపాలెం-చేవూరుపాలెం సెంటర్, ముదినేపల్లి మండలం',
+    addressLocality: 'శింగరాయపాలెం',
+    addressRegion: 'ఆంధ్రప్రదేశ్',
+    postalCode: '521329',
+    addressCountry: 'IN',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: geo.lat, longitude: geo.lng },
+  hasMap: directionsUrl,
+  openingHoursSpecification: hours.map((h) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    opens: h.opens,
+    closes: h.closes,
+  })),
+};
+
 const mapSrc =
   'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7654.569847912421!2d81.14718677162973!3d16.41034964648989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a361f6f024979cd%3A0xe4b84503a5f41714!2sSri%20Valli%20Devasena%20Sameta%20Sri%20Subrahmanyeswara%20Swamy%20Temple!5e0!3m2!1sen!2snl!4v1672692367432!5m2!1sen!2snl';
 ---
@@ -132,7 +172,21 @@ const mapSrc =
       </section>
 
       <section id="timings-section" class="card self-start lg:col-start-1 lg:row-start-2">
-        <h2 class="section-title">ఆలయ దర్శన వేళలు</h2>
+        <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+          <h2 class="section-title">ఆలయ దర్శన వేళలు</h2>
+          <p
+            id="open-status"
+            data-hours={JSON.stringify(hours)}
+            hidden
+            class="mt-1 inline-flex items-center gap-2 rounded-full px-3 py-0.5 text-sm font-semibold data-[open=false]:bg-gold-soft data-[open=false]:text-muted data-[open=true]:bg-emerald-50 data-[open=true]:text-emerald-800"
+          >
+            <span
+              aria-hidden="true"
+              class="size-2 rounded-full bg-current in-data-[open=true]:animate-pulse motion-reduce:animate-none"
+            ></span>
+            <span data-label></span>
+          </p>
+        </div>
         <ul class="mt-4 space-y-3">
           <li class="font-semibold text-muted">ప్రతి రోజు,</li>
           <li class="flex items-start gap-3">
@@ -168,7 +222,49 @@ const mapSrc =
     </div>
 
     <section id="how-to-reach-section" class="mt-12 lg:mt-16">
-      <h2 class="section-title">ఎలా చేరుకోవాలి</h2>
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <h2 class="section-title">ఎలా చేరుకోవాలి</h2>
+        <!-- Desktop only; phones and tablets get the fixed bottom action bar -->
+        <div class="hidden flex-wrap gap-3 lg:flex">
+        <a
+          href={`tel:${phones[0].tel}`}
+          class="inline-flex items-center gap-2 rounded-full border border-maroon bg-surface px-5 py-2.5 font-semibold text-maroon shadow-sm transition-colors hover:bg-gold-soft"
+        >
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            class="size-5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><path
+              d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"
+            ></path></svg
+          >
+          కాల్ చేయండి
+        </a>
+        <a
+          href={directionsUrl}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2 rounded-full bg-maroon px-5 py-2.5 font-semibold text-white shadow-sm transition-colors hover:bg-saffron-deep"
+        >
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            class="size-5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"><path d="m3 11 18-8-8 18-2-8z"></path></svg
+          >
+          దారి చూపు
+        </a>
+        </div>
+      </div>
       <div class="mt-6 grid gap-6 lg:grid-cols-2 lg:gap-10">
         <div class="space-y-4">
           <p class="font-semibold text-muted">రవాణా సౌకర్యాలు</p>
@@ -250,21 +346,41 @@ const mapSrc =
         </div>
 
         <div
-          class="aspect-[4/3] overflow-hidden rounded-2xl border-4 border-gold bg-gold-soft shadow-sm lg:aspect-auto lg:min-h-[24rem]"
+          id="map"
+          data-src={mapSrc}
+          data-title={templeName}
+          class="relative aspect-[4/3] overflow-hidden rounded-2xl border-4 border-gold bg-gold-soft shadow-sm lg:aspect-auto lg:min-h-[24rem]"
         >
-          <iframe
-            src={mapSrc}
-            title={templeName}
-            class="h-full w-full border-0"
-            allowfullscreen
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <!-- Facade: Google Maps (~1 MB) loads only when asked. Without JS the link opens Maps. -->
+          <a
+            href={directionsUrl}
+            target="_blank"
+            rel="noopener"
+            data-map-load
+            class="group absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[radial-gradient(circle_at_center,var(--color-surface)_0,var(--color-gold-soft)_70%)] p-6 text-center"
+          >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              class="size-12 text-saffron-deep transition-transform group-hover:-translate-y-1"
+              fill="currentColor"
+              ><path
+                d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"
+              ></path></svg
+            >
+            <span class="max-w-xs leading-normal font-bold text-maroon">{templeName}</span>
+            <span
+              class="rounded-full border border-maroon px-5 py-2 font-semibold text-maroon transition-colors group-hover:bg-maroon group-hover:text-white"
+            >
+              మ్యాప్ చూడండి
+            </span>
+          </a>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="mt-8 border-t border-gold bg-surface">
+  <footer class="mt-8 border-t border-gold bg-surface pb-[calc(4.5rem+env(safe-area-inset-bottom))] lg:pb-0">
     <div class="mx-auto grid max-w-6xl gap-6 px-4 py-8 sm:px-6 md:grid-cols-2 md:items-end">
       <div>
         <h2 class="font-bold text-maroon">ఆలయం వివరాలు</h2>
@@ -278,8 +394,19 @@ const mapSrc =
             <li>భారతదేశం.</li>
           </ul>
           <ul class="mt-3">
-            <li>08674-234591,</li>
-            <li>08674-294591</li>
+            {
+              phones.map((p, i) => (
+                <li>
+                  <a
+                    href={`tel:${p.tel}`}
+                    class="font-semibold text-maroon underline decoration-gold decoration-2 underline-offset-4 hover:decoration-saffron"
+                  >
+                    {p.display}
+                  </a>
+                  {i < phones.length - 1 && ','}
+                </li>
+              ))
+            }
           </ul>
         </address>
       </div>
@@ -288,6 +415,106 @@ const mapSrc =
       </p>
     </div>
   </footer>
+
+  <!-- Mobile quick actions -->
+  <div
+    class="fixed inset-x-0 bottom-0 z-30 border-t border-gold bg-surface/95 px-4 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] shadow-[0_-3px_5px_-3px_var(--color-saffron)] backdrop-blur lg:hidden"
+  >
+    <div class="mx-auto grid max-w-lg grid-cols-2 gap-3">
+      <a
+        href={`tel:${phones[0].tel}`}
+        class="flex items-center justify-center gap-2 rounded-full border border-maroon py-2.5 font-semibold text-maroon"
+      >
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          class="size-5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          ><path
+            d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"
+          ></path></svg
+        >
+        కాల్ చేయండి
+      </a>
+      <a
+        href={directionsUrl}
+        target="_blank"
+        rel="noopener"
+        class="flex items-center justify-center gap-2 rounded-full bg-maroon py-2.5 font-semibold text-white"
+      >
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          class="size-5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"><path d="m3 11 18-8-8 18-2-8z"></path></svg
+        >
+        దారి చూపు
+      </a>
+    </div>
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <script>
+    // Keep anchor offsets equal to the real sticky-header height (it wraps on small screens).
+    const header = document.querySelector('header');
+    if (header) {
+      const setHeaderHeight = () =>
+        document.documentElement.style.setProperty('--header-h', `${header.offsetHeight}px`);
+      new ResizeObserver(setHeaderHeight).observe(header);
+      setHeaderHeight();
+    }
+
+    // "Open now" badge, computed in India time regardless of the visitor's zone.
+    const status = document.getElementById('open-status');
+    if (status) {
+      const hours: { opens: string; closes: string }[] = JSON.parse(status.dataset.hours ?? '[]');
+      const toMin = (t: string) => {
+        const [h, m] = t.split(':').map(Number);
+        return h * 60 + m;
+      };
+      const update = () => {
+        const parts = new Intl.DateTimeFormat('en-GB', {
+          timeZone: 'Asia/Kolkata',
+          hour: '2-digit',
+          minute: '2-digit',
+          hourCycle: 'h23',
+        }).formatToParts(new Date());
+        const get = (type: string) => Number(parts.find((p) => p.type === type)?.value);
+        const now = get('hour') * 60 + get('minute');
+        const open = hours.some((h) => now >= toMin(h.opens) && now < toMin(h.closes));
+        status.dataset.open = String(open);
+        status.querySelector('[data-label]')!.textContent = open
+          ? 'ఇప్పుడు తెరిచి ఉంది'
+          : 'ప్రస్తుతం మూసి ఉంది';
+        status.hidden = false;
+      };
+      update();
+      setInterval(update, 60_000);
+    }
+
+    // Map facade: swap in the Google Maps iframe on first tap.
+    const map = document.getElementById('map');
+    map?.querySelector('[data-map-load]')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      const iframe = document.createElement('iframe');
+      iframe.src = map.dataset.src!;
+      iframe.title = map.dataset.title!;
+      iframe.className = 'absolute inset-0 h-full w-full border-0';
+      iframe.allowFullscreen = true;
+      iframe.referrerPolicy = 'no-referrer-when-downgrade';
+      map.replaceChildren(iframe);
+      iframe.focus();
+    });
+  </script>
 
   <script is:inline defer src="/js/display-visitors-count.js"></script>
   <script
