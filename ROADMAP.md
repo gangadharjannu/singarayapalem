@@ -55,3 +55,8 @@ structure, styling, delivery and additive features.
     `visit_count()` helper or one fetch for the counter; or a no-JS pixel; or
     drop the public counter entirely. Decide whether the visible visitor count
     is worth keeping.
+- **Long-lived caching** — GitHub Pages forces `Cache-Control: max-age=600` on every
+  file. `/_astro/*` files are content-hashed, so they could safely be cached for a
+  year as `immutable`. Options: put Cloudflare (free) in front of GitHub Pages with a
+  Cache Rule for `/_astro/*`, or host on Cloudflare Pages / Netlify with a
+  `public/_headers` file. Needs DNS/account changes by the owner.
