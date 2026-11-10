@@ -11,7 +11,12 @@ structure, styling, delivery and additive features.
    - Responsive layout; image shown uncropped; history reflowed into paragraphs
      (word-for-word identical)
    - GitHub Actions now builds the site; `dist/` is no longer committed
-2. **Images** — responsive, re-encoded sizes (AVIF/WebP) for mobile; `og:image`; favicon
+2. **Images** — done
+   - Same image re-encoded at 400/600/800/1024w in AVIF (q50), WebP (q72), JPEG (q72);
+     a 390px phone now downloads ~85 KB instead of 276 KB
+   - Image shown uncropped; `og:image` (800px JPEG, under WhatsApp's ~300 KB limit)
+   - Favicon + apple-touch-icon cropped from Swami's face (`npm run icons`)
+   - Source of truth is `src/assets/swami.jpg`; unused `public/swami.{jpg,webp}` removed
 3. **Additions** — tap-to-call phone numbers, "Directions" button, sticky mobile
    action bar, tap-to-load map, "open now" badge, Schema.org `HinduTemple` JSON-LD
 4. **More information** — nothing for now (see Next steps)
@@ -30,3 +35,14 @@ structure, styling, delivery and additive features.
   Shashti / Krittika days.
   - Open questions: whether the temple publishes its own utsavam dates; a
     maintained data file (e.g. `src/data/festivals.json`) vs. computed dates.
+- **Analytics — fix or replace with something minimal and privacy-focused.**
+  STRICTLY no bloated analytics (no Google Analytics, no tag managers, no cookies,
+  no consent banner needed).
+  - Today: GoatCounter `count.js` plus a separate XHR in
+    `public/js/display-visitors-count.js` for the visitor count. Ad blockers
+    block `gc.zgo.at`, which is why Lighthouse logged console errors, and the
+    count call is a second request.
+  - Options: keep GoatCounter but self-host `count.js` (about 3 KB) and use its
+    `visit_count()` helper or one fetch for the counter; or a no-JS pixel; or
+    drop the public counter entirely. Decide whether the visible visitor count
+    is worth keeping.

@@ -1,5 +1,30 @@
 ---
+import { getImage } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import swami from '../assets/swami.jpg';
+
+// Responsive hero: same image re-encoded per format. Quality is tuned per
+// format because AVIF/WebP/JPEG quality scales are not equivalent.
+// 1024w max: enough for a ~360px-wide phone at 3x density.
+const heroWidths = [400, 600, 800, 1024];
+const heroQuality = { avif: 50, webp: 72, jpg: 72 } as const;
+const heroSizes =
+  '(min-width: 1152px) 440px, (min-width: 1024px) calc((100vw - 6rem) * 5 / 12), (min-width: 560px) 512px, calc(100vw - 2rem)';
+
+async function srcset(format: keyof typeof heroQuality) {
+  const images = await Promise.all(
+    heroWidths.map((width) => getImage({ src: swami, width, format, quality: heroQuality[format] })),
+  );
+  return images.map((img, i) => `${img.src} ${heroWidths[i]}w`).join(', ');
+}
+
+const fallbackImg = await getImage({ src: swami, width: 800, format: 'jpg', quality: heroQuality.jpg });
+const hero = {
+  avif: await srcset('avif'),
+  webp: await srcset('webp'),
+  jpg: await srcset('jpg'),
+  fallback: fallbackImg.src,
+};
 
 const templeName = 'శ్రీ వల్లీదేవసేన సమేత శ్రీ సుబ్రహ్మణ్యేశ్వరస్వామి వారి దేవస్థానము';
 
@@ -47,14 +72,17 @@ const mapSrc =
   <main class="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:py-10">
     <div class="grid gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:grid-rows-[auto_1fr] lg:gap-x-12 lg:gap-y-8">
       <picture class="mx-auto block w-full max-w-lg lg:col-start-1 lg:row-start-1 lg:max-w-none">
-        <source srcset="/swami.webp" type="image/webp" />
+        <source type="image/avif" srcset={hero.avif} sizes={heroSizes} />
+        <source type="image/webp" srcset={hero.webp} sizes={heroSizes} />
         <img
-          src="/swami.jpg"
+          src={hero.fallback}
+          srcset={hero.jpg}
+          sizes={heroSizes}
           alt="శ్రీ వల్లీదేవసేన సమేత శ్రీ సుబ్రహ్మణ్యేశ్వరస్వామి వారు"
-          width="1234"
-          height="1234"
+          width={swami.width}
+          height={swami.height}
           fetchpriority="high"
-          class="aspect-square w-full rounded-2xl border-4 border-gold object-cover shadow-md"
+          class="aspect-square h-auto w-full rounded-2xl border-4 border-gold bg-gold-soft object-cover shadow-md"
         />
       </picture>
 
